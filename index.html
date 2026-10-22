@@ -47,23 +47,13 @@ nav ul a:hover{color:var(--ink)}
 
 /* hero */
 .hero{display:grid;grid-template-columns:1fr;gap:2rem;padding:3rem 0 4rem;align-items:center}
-@media (min-width:760px){.hero{grid-template-columns:1fr 15rem;gap:4rem;padding:5rem 0 6rem}}
+@media (min-width:760px){.hero{grid-template-columns:1fr 18rem;gap:4rem;padding:5rem 0 6rem}}
 .hero h1{font-weight:300;font-size:clamp(3rem,9vw,5.5rem);line-height:.95;letter-spacing:-.025em;margin:0 0 .35em}
 .hero h1 small{display:block;font-size:.32em;letter-spacing:0;color:var(--muted);margin-top:.6em;font-style:italic;font-weight:400}
 .hero p.lede{font-size:clamp(1.25rem,2.4vw,1.5rem);line-height:1.45;max-width:32ch;margin:0 0 1.5rem}
 .hero .meta{font:400 .9375rem/1.6 var(--sans);color:var(--muted);margin:0}
-.profile{width:100%;max-width:12rem;height:auto;justify-self:center;overflow:visible}
-@media (min-width:760px){.profile{justify-self:end;max-width:15rem}}
-.profile .axis{stroke:var(--muted);stroke-width:1}
-.profile .cloud{fill:var(--cloud)}
-.profile .base{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 4}
-.profile .lbl{font:400 11px var(--sans);fill:var(--muted)}
-.p-org{fill:var(--amber);opacity:.85}
-.p-drop{fill:none;stroke:var(--drop);stroke-width:1.3}
-.rise{animation:rise 2.4s cubic-bezier(.2,.7,.2,1) both}
-.rise.late{animation-delay:.35s}
-@keyframes rise{from{transform:translateY(26px);opacity:0}to{transform:none;opacity:1}}
-@media (prefers-reduced-motion:reduce){.rise{animation:none}}
+.portrait{display:block;width:100%;max-width:18rem;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:3px;justify-self:start}
+@media (min-width:760px){.portrait{justify-self:end}}
 
 /* sections */
 section{border-top:1px solid var(--rule);padding:3.5rem 0}
@@ -71,17 +61,15 @@ section{border-top:1px solid var(--rule);padding:3.5rem 0}
 section>h2{font:600 .9375rem/1.4 var(--sans);margin:0 0 1.5rem;color:var(--ink)}
 .body{max-width:40rem}
 .body p{margin:0 0 1.1em}
-.about{display:grid;gap:1.75rem}
-@media (min-width:560px){.about{grid-template-columns:8.5rem 1fr;align-items:start}}
-.photo{width:8.5rem;aspect-ratio:4/5;background:var(--surface);border:1px solid var(--rule);
-  display:grid;place-items:center;font:400 2rem var(--serif);color:var(--muted);overflow:hidden}
-.photo img{width:100%;height:100%;object-fit:cover;display:block}
 
 /* research */
 .theme{margin:0 0 2.25rem}
 .theme:last-child{margin-bottom:0}
 .theme h3{font:400 1.375rem/1.3 var(--serif);margin:0 0 .4rem}
 .theme p{margin:0}
+.fig{margin:1.25rem 0 0;padding:0}
+.fig img{display:block;width:100%;height:auto;max-width:100%;border-radius:3px;background:#fff;border:1px solid var(--rule)}
+.fig figcaption{font:400 .875rem/1.55 var(--sans);color:var(--muted);margin-top:.6rem}
 .methods{font:400 .9375rem/1.6 var(--sans);color:var(--muted);margin-top:2.5rem!important;max-width:36rem}
 
 /* lists with year rail */
@@ -111,6 +99,7 @@ footer{border-top:1px solid var(--rule);padding:2rem 0 3rem;font:400 .8125rem/1.
   <nav aria-label="Main">
     <a class="home" href="#top">Sijia Liu</a>
     <ul>
+      <li><a href="#news">News</a></li>
       <li><a href="#research">Research</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -124,94 +113,35 @@ footer{border-top:1px solid var(--rule);padding:2rem 0 3rem;font:400 .8125rem/1.
       <p class="lede">Atmospheric chemist studying how organic aerosol forms in the air and what happens when it meets a cloud.</p>
       <p class="meta">PhD candidate in Chemistry, University of California, Irvine</p>
     </div>
-    <svg class="profile" viewBox="0 0 240 430" role="img" aria-labelledby="fig-t">
-      <title id="fig-t">Schematic altitude profile. Organic aerosol particles below cloud base, activated cloud droplets above it.</title>
-      <rect class="cloud" x="10" y="30" width="220" height="190" rx="2"/>
-      <line class="axis" x1="6" y1="20" x2="6" y2="404"/>
-      <line class="axis" x1="6" y1="404" x2="234" y2="404"/>
-      <line class="base" x1="6" y1="220" x2="234" y2="220"/>
-      <g class="rise late">
-        <circle class="p-drop" cx="109" cy="188" r="6.8"/>
-        <circle class="p-drop" cx="213" cy="193" r="4.8"/>
-        <circle class="p-drop" cx="64" cy="74" r="4.2"/>
-        <circle class="p-drop" cx="145" cy="72" r="6.7"/>
-        <circle class="p-drop" cx="116" cy="170" r="5.8"/>
-        <circle class="p-drop" cx="35" cy="164" r="5.8"/>
-        <circle class="p-drop" cx="178" cy="181" r="6.1"/>
-        <circle class="p-drop" cx="54" cy="114" r="6.3"/>
-        <circle class="p-drop" cx="181" cy="92" r="6.9"/>
-        <circle class="p-drop" cx="100" cy="101" r="6.8"/>
-        <circle class="p-drop" cx="53" cy="152" r="3.9"/>
-        <circle class="p-drop" cx="203" cy="63" r="6.3"/>
-        <circle class="p-drop" cx="187" cy="63" r="6.9"/>
-        <circle class="p-drop" cx="89" cy="142" r="5.4"/>
-        <circle class="p-drop" cx="21" cy="60" r="6.9"/>
-        <circle class="p-drop" cx="125" cy="141" r="6.8"/>
-        <circle class="p-drop" cx="196" cy="107" r="6.4"/>
-        <circle class="p-drop" cx="69" cy="73" r="4.5"/>
-      </g>
-      <g class="rise">
-        <circle class="p-org" cx="49" cy="291" r="1.7"/>
-        <circle class="p-org" cx="93" cy="325" r="2.6"/>
-        <circle class="p-org" cx="106" cy="246" r="1.8"/>
-        <circle class="p-org" cx="187" cy="307" r="2.0"/>
-        <circle class="p-org" cx="211" cy="339" r="2.4"/>
-        <circle class="p-org" cx="28" cy="394" r="4.1"/>
-        <circle class="p-org" cx="42" cy="263" r="3.2"/>
-        <circle class="p-org" cx="137" cy="269" r="2.3"/>
-        <circle class="p-org" cx="31" cy="327" r="2.0"/>
-        <circle class="p-org" cx="105" cy="348" r="2.8"/>
-        <circle class="p-org" cx="79" cy="312" r="3.0"/>
-        <circle class="p-org" cx="135" cy="279" r="3.4"/>
-        <circle class="p-org" cx="77" cy="355" r="3.8"/>
-        <circle class="p-org" cx="172" cy="306" r="2.6"/>
-        <circle class="p-org" cx="154" cy="246" r="2.7"/>
-        <circle class="p-org" cx="82" cy="378" r="2.8"/>
-        <circle class="p-org" cx="111" cy="332" r="5.1"/>
-        <circle class="p-org" cx="153" cy="315" r="3.0"/>
-        <circle class="p-org" cx="221" cy="342" r="4.1"/>
-        <circle class="p-org" cx="154" cy="301" r="2.5"/>
-        <circle class="p-org" cx="42" cy="267" r="3.1"/>
-        <circle class="p-org" cx="69" cy="260" r="3.3"/>
-        <circle class="p-org" cx="110" cy="253" r="3.4"/>
-        <circle class="p-org" cx="194" cy="369" r="2.4"/>
-        <circle class="p-org" cx="198" cy="297" r="3.8"/>
-        <circle class="p-org" cx="65" cy="268" r="2.6"/>
-        <circle class="p-org" cx="72" cy="333" r="2.4"/>
-        <circle class="p-org" cx="134" cy="298" r="4.7"/>
-        <circle class="p-org" cx="144" cy="321" r="1.7"/>
-        <circle class="p-org" cx="177" cy="382" r="4.9"/>
-        <circle class="p-org" cx="99" cy="302" r="2.9"/>
-        <circle class="p-org" cx="32" cy="250" r="1.9"/>
-        <circle class="p-org" cx="29" cy="294" r="1.9"/>
-        <circle class="p-org" cx="92" cy="256" r="3.3"/>
-        <circle class="p-org" cx="48" cy="337" r="2.3"/>
-        <circle class="p-org" cx="43" cy="298" r="5.2"/>
-        <circle class="p-org" cx="117" cy="314" r="1.8"/>
-        <circle class="p-org" cx="72" cy="294" r="3.9"/>
-        <circle class="p-org" cx="212" cy="244" r="1.9"/>
-        <circle class="p-org" cx="24" cy="326" r="3.6"/>
-        <circle class="p-org" cx="160" cy="376" r="2.3"/>
-        <circle class="p-org" cx="175" cy="266" r="3.2"/>
-        <circle class="p-org" cx="64" cy="292" r="5.2"/>
-        <circle class="p-org" cx="182" cy="375" r="4.8"/>
-        <circle class="p-org" cx="124" cy="276" r="1.7"/>
-        <circle class="p-org" cx="75" cy="244" r="3.0"/>
-      </g>
-      <text class="lbl" x="230" y="214" text-anchor="end">cloud base</text>
-      <text class="lbl" x="12" y="422">aerosol</text>
-      <text class="lbl" x="-20" y="14">altitude</text>
-    </svg>
   </header>
 
   <section id="about" aria-labelledby="h-about">
     <h2 id="h-about">About</h2>
-    <div class="about">
-      <div class="photo"><!-- Replace with: <img src="img/headshot.jpg" alt="Sijia Liu"> -->SL</div>
-      <div class="body">
-        <p>I am a PhD candidate in Chemistry at the University of California, Irvine, advised by Prof. Sergey A. Nizkorodov and Prof. Celia L. Faiola. I study how secondary organic aerosol forms, what it is made of, and how its physical properties shape its interactions with clouds, climate, and the air people breathe indoors.</p>
-        <p>My work moves between environmental chambers, indoor air experiments, single-particle and high-resolution mass spectrometry at the Environmental Molecular Sciences Laboratory (EMSL) at Pacific Northwest National Laboratory, and airborne sampling on the ArcticShark uncrewed aircraft at DOE ARM sites. I am a recipient of the F. Sherwood Rowland Graduate Research Fellowship and expect to complete my PhD in June 2027.</p>
-      </div>
+    <div class="body">
+      <p>I am a PhD candidate in Chemistry at the University of California, Irvine, advised by Prof. Sergey A. Nizkorodov and Prof. Celia L. Faiola. I study how secondary organic aerosol forms, what it is made of, and how its physical properties shape its interactions with clouds, climate, and the air people breathe indoors.</p>
+      <p>My work moves between environmental chambers, indoor air experiments, single-particle and high-resolution mass spectrometry at the Environmental Molecular Sciences Laboratory (EMSL) at Pacific Northwest National Laboratory, and airborne sampling on the ArcticShark uncrewed aircraft at DOE ARM sites. I am a recipient of the F. Sherwood Rowland Graduate Research Fellowship and expect to complete my PhD in June 2027.</p>
+    </div>
+  </section>
+
+  <section id="news" aria-labelledby="h-news">
+    <h2 id="h-news">News</h2>
+    <div class="body">
+      <ol class="rail">
+        <li><span class="yr">Oct 2026</span>
+          <p class="pub"><span class="t">Presenting indoor SOA formation from consumer product sprays at the AAAR Annual Conference in Pasadena, where I also serve as a Student Media Ambassador.</span></p></li>
+        <li><span class="yr">Sep 2026</span>
+          <p class="pub"><span class="t">Received a Best Poster Award at the International Aerosol Conference in Xi’an for work on the viscosity and volatility of acyclic and cyclic terpene SOA.</span></p></li>
+        <li><span class="yr">Sep 2026</span>
+          <p class="pub"><span class="t">Gave an invited seminar at the Nanjing–Helsinki Institute in Suzhou on SOA from single precursors to mixtures.</span></p></li>
+        <li><span class="yr">Aug 2026</span>
+          <p class="pub"><span class="t">Awarded the 2026–27 UCI Chemistry Graduate Dissertation Fellowship.</span></p></li>
+        <li><span class="yr">Aug 2026</span>
+          <p class="pub"><span class="t">Joined the International Summer School on Air-Climate-Health at Peking University.</span></p></li>
+        <li><span class="yr">May 2026</span>
+          <p class="pub"><span class="t">Joined the DOE ARM Big Open Data Science Summer School at the National Weather Center in Norman, Oklahoma.</span></p></li>
+        <li><span class="yr">Jan 2026</span>
+          <p class="pub"><span class="t">Published in <i>ACS ES&amp;T Air</i>, showing that SOA from acyclic terpenes is more viscous and less volatile than SOA from their cyclic analogs.</span></p></li>
+      </ol>
     </div>
   </section>
 
@@ -238,7 +168,7 @@ footer{border-top:1px solid var(--rule);padding:2rem 0 3rem;font:400 .8125rem/1.
         <h3>Biomass burning aerosol</h3>
         <p>Pine needle combustion at controlled temperatures produces aerosol whose composition and physical properties depend on both burning temperature and particle size, resolved with nanoDESI-HRMS, SEM, and miniSPLAT.</p>
       </div>
-      <p class="methods">Methods include environmental chamber and oxidation flow reactor experiments, UPLC-HRMS (Orbitrap), nanoDESI-HRMS, single-particle mass spectrometry (miniSPLAT), PTR-ToF-MS, TD-GC-QToF-MS, electron and X-ray microscopy, and modeling with GECKO-A, KinSim, AtChem2/MCM, and WRF-Chem.</p>
+      <p class="methods">Methods include environmental chamber and oxidation flow reactor experiments, UPLC-HRMS (Orbitrap), nanoDESI-HRMS, single-particle mass spectrometry (miniSPLAT), PTR-ToF-MS, TD-GC-QToF-MS, electron and X-ray microscopy, and kinetic modeling with KinSim.</p>
     </div>
   </section>
 
@@ -331,6 +261,8 @@ footer{border-top:1px solid var(--rule);padding:2rem 0 3rem;font:400 .8125rem/1.
         <li><span class="yr">2026</span>
           <p class="pub"><span class="t">Selected participant, DOE ARM Summer School</span>
           <span class="a">National Weather Center, Norman, OK</span></p></li>
+        <li><span class="yr">2026</span>
+          <p class="pub"><span class="t">Chemistry Graduate Dissertation Fellowship, UC Irvine</span></p></li>
         <li><span class="yr">2025</span>
           <p class="pub"><span class="t">F. Sherwood Rowland Graduate Research Fellowship, UC Irvine</span></p></li>
         <li><span class="yr">2023, 25</span>
@@ -387,6 +319,7 @@ footer{border-top:1px solid var(--rule);padding:2rem 0 3rem;font:400 .8125rem/1.
       <ul class="links">
         <li><span>Email</span><a href="mailto:sijil12@uci.edu">sijil12@uci.edu</a></li>
         <li><span>ORCID</span><a href="https://orcid.org/0000-0002-6958-2868">0000-0002-6958-2868</a></li>
+        <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/lucia-liu-074ab5211/">lucia-liu</a></li>
         <li><span>GitHub</span><a href="https://github.com/sijialiu99">sijialiu99</a></li>
       </ul>
     </div>
