@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js")</script>
 <style>
 :root{
   --bg:#EEF2F5; --surface:#F7F9FB; --ink:#16233A; --muted:#4B5A6B; --rule:#C7D1DB;
@@ -38,12 +39,19 @@ a:hover{text-decoration-thickness:2px}
 .body,.theme,.pub{min-width:0}
 
 /* nav */
-nav{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:1.5rem 0;
+nav{position:sticky;top:0;z-index:5;background:var(--bg);box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(0 -100vmax);
+  display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:1.1rem 0;
   font:500 .875rem/1 var(--sans);letter-spacing:.01em;flex-wrap:wrap}
 nav .home{color:var(--ink);text-decoration:none;font-weight:600}
 nav ul{list-style:none;margin:0;padding:0;display:flex;gap:1.25rem;flex-wrap:wrap}
 nav ul a{color:var(--muted);text-decoration:none}
 nav ul a:hover{color:var(--ink)}
+nav ul a.on{color:var(--ink);text-decoration:underline;text-decoration-color:var(--amber);text-decoration-thickness:2px;text-underline-offset:.45em}
+.progress{position:fixed;top:0;left:0;right:0;height:2px;background:var(--amber);transform-origin:0 50%;transform:scaleX(0);z-index:6;pointer-events:none}
+html.js .rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+html.js .rv.fig{transform:translateY(22px) scale(.97)}
+html.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html.js .rv{opacity:1;transform:none;transition:none}.progress{display:none}}
 
 /* hero */
 .hero{display:grid;grid-template-columns:1fr;gap:2rem;padding:3rem 0 4rem;align-items:center}
@@ -66,7 +74,7 @@ nav ul a:hover{color:var(--ink)}
 @media (prefers-reduced-motion:reduce){.hero .intro>*{animation:none}}
 
 /* sections */
-section{border-top:1px solid var(--rule);padding:3.5rem 0}
+section{border-top:1px solid var(--rule);padding:3.5rem 0;scroll-margin-top:3.5rem}
 @media (min-width:760px){section{display:grid;grid-template-columns:11rem 1fr;gap:2rem;padding:4.5rem 0}}
 section>h2{font:600 .9375rem/1.4 var(--sans);margin:0 0 1.5rem;color:var(--ink)}
 .body{max-width:40rem}
@@ -108,6 +116,7 @@ footer{border-top:1px solid var(--rule);padding:2rem 0 3rem;font:400 .8125rem/1.
 </style>
 </head>
 <body>
+<div class="progress" aria-hidden="true"></div>
 <div class="wrap">
   <nav aria-label="Main">
     <a class="home" href="#top">Sijia Liu</a>
@@ -336,16 +345,22 @@ footer{border-top:1px solid var(--rule);padding:2rem 0 3rem;font:400 .8125rem/1.
   </section>
 
   <section id="service" aria-labelledby="h-service">
-    <h2 id="h-service">Mentoring and service</h2>
+    <h2 id="h-service">Teaching and service</h2>
     <div class="body">
+      <h3 class="sub">Teaching</h3>
+      <ol class="rail">
+        <li><span class="yr">2022–24</span>
+          <p class="pub"><span class="t">Teaching Assistant, General Chemistry, UC Irvine</span></p></li>
+        <li><span class="yr">2023</span>
+          <p class="pub"><span class="t">Teaching Assistant, Analytical Chemistry Laboratory, UC Irvine</span></p></li>
+      </ol>
+      <h3 class="sub">Mentoring and service</h3>
       <ol class="rail">
         <li><span class="yr">2026</span>
           <p class="pub"><span class="t">AAAR Student Media Ambassador</span></p></li>
-        <li><span class="yr">2024–25</span>
-          <p class="pub"><span class="t">Mentor to Avisa Charmchi, UCI Beckman Scholar</span>
-          <span class="a">Co-author on a submitted manuscript</span></p></li>
-        <li><span class="yr">2023–24</span>
-          <p class="pub"><span class="t">Mentor to Zhonghe Qin, UCI UROP Fellowship awardee</span></p></li>
+        <li><span class="yr">2023–25</span>
+          <p class="pub"><span class="t">Mentored two undergraduate researchers, a UCI Beckman Scholar and a UROP Fellowship awardee</span>
+          <span class="a">One became a co-author on a submitted manuscript</span></p></li>
         <li><span class="yr">2022–now</span>
           <p class="pub"><span class="t">Certified UHPLC-PDA-HRMS (Orbitrap) operator, AirUCI</span></p></li>
       </ol>
@@ -371,7 +386,8 @@ footer{border-top:1px solid var(--rule);padding:2rem 0 3rem;font:400 .8125rem/1.
   var svg=document.getElementById('scene'); if(!svg) return;
   var g=document.getElementById('parts'), NS='http://www.w3.org/2000/svg';
   var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var TOP=150, BASE=140, CTOP=40, GROUND=368, N=34, P=[];
+  var TOP=150, BASE=140, CTOP=40, GROUND=368, N=34, P=[], boost=0, lastY=window.scrollY;
+  window.addEventListener('scroll',function(){var d=Math.abs(window.scrollY-lastY);lastY=window.scrollY;boost=Math.min(4,boost+d*.04);},{passive:true});
   function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
   function mk(){var c=document.createElementNS(NS,'circle');g.appendChild(c);return c;}
   function spawn(p,anywhere){
@@ -400,16 +416,47 @@ footer{border-top:1px solid var(--rule);padding:2rem 0 3rem;font:400 .8125rem/1.
   }
   function step(){
     for(var i=0;i<P.length;i++){var p=P[i];
-      p.y-=p.v*(p.y<BASE?.55:1);
+      p.y-=p.v*(p.y<BASE?.55:1)*(1+boost);
       if(p.y<CTOP||(!p.act&&p.y<BASE-30)) spawn(p,false);
       draw(p);}
   }
   P.forEach(draw);
   if(still) return;
   var on=true, raf;
-  function loop(){ if(on){step();} raf=requestAnimationFrame(loop); }
+  function loop(){ if(on){step();} boost*=.94; raf=requestAnimationFrame(loop); }
   if('IntersectionObserver' in window){ new IntersectionObserver(function(e){on=e[0].isIntersecting;}).observe(svg); }
   loop();
+})();
+</script>
+<script>
+(function(){
+  var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // reveal on scroll
+  var items=[].slice.call(document.querySelectorAll('section>h2, .theme, .rail>li, .fig, .methods, .about .photo, .about .body p, .links>li, .sub'));
+  items.forEach(function(el){el.classList.add('rv');});
+  if(still||!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('in');});}
+  else{
+    var io=new IntersectionObserver(function(es){
+      var n=0;
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.style.transitionDelay=Math.min(n++,5)*70+'ms'; e.target.classList.add('in'); io.unobserve(e.target);} });
+    },{rootMargin:'0px 0px -8% 0px'});
+    items.forEach(function(el){io.observe(el);});
+  }
+  // progress bar and active nav link
+  var bar=document.querySelector('.progress');
+  var links=[].slice.call(document.querySelectorAll('nav ul a[href^="#"]'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  var tick=false;
+  function upd(){
+    tick=false;
+    var h=document.documentElement, max=h.scrollHeight-h.clientHeight;
+    if(bar) bar.style.transform='scaleX('+(max>0?h.scrollTop/max:0)+')';
+    var cur=-1, mid=window.innerHeight*.35;
+    secs.forEach(function(s,i){ if(s&&s.getBoundingClientRect().top<mid) cur=i; });
+    links.forEach(function(a,i){a.classList.toggle('on',i===cur);});
+  }
+  window.addEventListener('scroll',function(){ if(!tick){tick=true;requestAnimationFrame(upd);} },{passive:true});
+  upd();
 })();
 </script>
 </body>
