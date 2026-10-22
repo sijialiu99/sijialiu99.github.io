@@ -12,18 +12,18 @@
 <style>
 :root{
   --bg:#EEF2F5; --surface:#F7F9FB; --ink:#16233A; --muted:#4B5A6B; --rule:#C7D1DB;
-  --link:#3A4CC0; --amber:#B9831C; --drop:#5C6FD6; --cloud:#DCE3EA;
+  --link:#3A4CC0; --amber:#B9831C; --drop:#5C6FD6; --cloud:#DCE3EA; --leaf:#5E8C6A; --voc:#6FA37C;
   --serif:"Spectral",Georgia,serif; --sans:"Archivo",system-ui,sans-serif;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --bg:#0F1826; --surface:#152133; --ink:#E4E9EF; --muted:#9FADBD; --rule:#2B3A4F;
-    --link:#9AA8FF; --amber:#E0AE4A; --drop:#8E9DF5; --cloud:#1D2A3E; color-scheme:dark;
+    --link:#9AA8FF; --amber:#E0AE4A; --drop:#8E9DF5; --cloud:#1D2A3E; --leaf:#3F6B4C; --voc:#8CC79A; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#0F1826; --surface:#152133; --ink:#E4E9EF; --muted:#9FADBD; --rule:#2B3A4F;
-  --link:#9AA8FF; --amber:#E0AE4A; --drop:#8E9DF5; --cloud:#1D2A3E; color-scheme:dark;
+  --link:#9AA8FF; --amber:#E0AE4A; --drop:#8E9DF5; --cloud:#1D2A3E; --leaf:#3F6B4C; --voc:#8CC79A; color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -47,19 +47,32 @@ nav ul a:hover{color:var(--ink)}
 
 /* hero */
 .hero{display:grid;grid-template-columns:1fr;gap:2rem;padding:3rem 0 4rem;align-items:center}
-@media (min-width:760px){.hero{grid-template-columns:1fr 18rem;gap:4rem;padding:5rem 0 6rem}}
+@media (min-width:760px){.hero{grid-template-columns:1fr 19rem;gap:4rem;padding:5rem 0 6rem}}
 .hero h1{font-weight:300;font-size:clamp(3rem,9vw,5.5rem);line-height:.95;letter-spacing:-.025em;margin:0 0 .35em}
 .hero h1 small{display:block;font-size:.32em;letter-spacing:0;color:var(--muted);margin-top:.6em;font-style:italic;font-weight:400}
 .hero p.lede{font-size:clamp(1.25rem,2.4vw,1.5rem);line-height:1.45;max-width:32ch;margin:0 0 1.5rem}
 .hero .meta{font:400 .9375rem/1.6 var(--sans);color:var(--muted);margin:0}
-.portrait{display:block;width:100%;max-width:18rem;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:3px;justify-self:start}
-@media (min-width:760px){.portrait{justify-self:end}}
+.scene{width:100%;max-width:17rem;height:auto;justify-self:center;overflow:visible}
+@media (min-width:760px){.scene{justify-self:end;max-width:19rem}}
+.scene .ax{stroke:var(--muted);stroke-width:1;fill:none}
+.scene .cb{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 4}
+.scene .cl{fill:var(--cloud)}
+.scene .tree{fill:var(--leaf)}
+.scene text{font:400 11px var(--sans);fill:var(--muted);paint-order:stroke;stroke:var(--bg);stroke-width:4px;stroke-linejoin:round}
+.hero .intro>*{animation:lift .9s cubic-bezier(.2,.7,.2,1) both}
+.hero .intro>:nth-child(2){animation-delay:.12s}
+.hero .intro>:nth-child(3){animation-delay:.24s}
+@keyframes lift{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.hero .intro>*{animation:none}}
 
 /* sections */
 section{border-top:1px solid var(--rule);padding:3.5rem 0}
 @media (min-width:760px){section{display:grid;grid-template-columns:11rem 1fr;gap:2rem;padding:4.5rem 0}}
 section>h2{font:600 .9375rem/1.4 var(--sans);margin:0 0 1.5rem;color:var(--ink)}
 .body{max-width:40rem}
+.about{display:grid;gap:1.75rem}
+@media (min-width:600px){.about{grid-template-columns:12rem 1fr;align-items:start}}
+.photo{display:block;width:100%;max-width:12rem;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:3px}
 .body p{margin:0 0 1.1em}
 
 /* research */
@@ -108,18 +121,36 @@ footer{border-top:1px solid var(--rule);padding:2rem 0 3rem;font:400 .8125rem/1.
   </nav>
 
   <header class="hero" id="top">
-    <div>
+    <div class="intro">
       <h1>Sijia Liu<small>also Lucia</small></h1>
       <p class="lede">Atmospheric chemist studying how organic aerosol forms in the air and what happens when it meets a cloud.</p>
       <p class="meta">PhD candidate in Chemistry, University of California, Irvine</p>
     </div>
+    <svg class="scene" id="scene" viewBox="0 0 260 400" role="img" aria-labelledby="scene-t">
+      <title id="scene-t">Animation of secondary organic aerosol formation. Volatile organic compounds rise from a forest canopy, oxidize and condense into growing particles, and some particles activate into cloud droplets above cloud base.</title>
+      <g class="cl">
+        <ellipse cx="128" cy="96" rx="104" ry="46"/><circle cx="82" cy="78" r="40"/><circle cx="140" cy="58" r="50"/><circle cx="192" cy="84" r="36"/><rect x="24" y="96" width="208" height="44" rx="22"/>
+      </g>
+      <line class="cb" x1="18" y1="140" x2="252" y2="140"/>
+      <g id="parts"></g>
+      <path class="tree" d="M18 372 q10-26 20 0 q8-20 17 0 q11-30 22 0 q9-22 18 0 q12-28 24 0 q8-18 16 0 q11-26 22 0 q10-24 20 0 q9-20 18 0 q12-30 24 0 q9-22 18 0 q7-16 13 0 V380 H18 Z"/>
+      <path class="ax" d="M10 380 V22 M6 28 L10 20 L14 28"/>
+      <text x="18" y="30">altitude</text>
+      <text x="252" y="134" text-anchor="end">cloud base</text>
+      <text x="252" y="30" text-anchor="end">cloud droplets</text>
+      <text x="252" y="250" text-anchor="end">SOA particles</text>
+      <text x="252" y="396" text-anchor="end">VOCs from the canopy</text>
+    </svg>
   </header>
 
   <section id="about" aria-labelledby="h-about">
     <h2 id="h-about">About</h2>
-    <div class="body">
+    <div class="about">
+      <img class="photo" src="img/headshot.webp" alt="Sijia Liu in the lab, holding a sample slide in gloved hands" width="560" height="560">
+      <div class="body">
       <p>I am a PhD candidate in Chemistry at the University of California, Irvine, advised by Prof. Sergey A. Nizkorodov and Prof. Celia L. Faiola. I study how secondary organic aerosol forms, what it is made of, and how its physical properties shape its interactions with clouds, climate, and the air people breathe indoors.</p>
       <p>My work moves between environmental chambers, indoor air experiments, single-particle and high-resolution mass spectrometry at the Environmental Molecular Sciences Laboratory (EMSL) at Pacific Northwest National Laboratory, and airborne sampling on the ArcticShark uncrewed aircraft at DOE ARM sites. I am a recipient of the F. Sherwood Rowland Graduate Research Fellowship and expect to complete my PhD in June 2027.</p>
+      </div>
     </div>
   </section>
 
@@ -151,18 +182,26 @@ footer{border-top:1px solid var(--rule);padding:2rem 0 3rem;font:400 .8125rem/1.
       <div class="theme">
         <h3>VOC mixtures and cross-reactions</h3>
         <p>SOA yields are usually measured one precursor at a time, while real air holds many VOCs oxidizing together. In OH oxidation of D-limonene and myrcene, the acyclic monoterpene did not suppress SOA formation from the cyclic one. In α-pinene ozonolysis with anthropogenic co-VOCs, cross-reactions between peroxy radicals from different precursors changed SOA composition, tracked through dimer formation by UPLC-HRMS and KinSim modeling.</p>
+        <figure class="fig"><img src="img/mixture-dimers.webp" alt="Ozonolysis of alpha-pinene alone and mixed with cyclohexene or trans-3-hexene, showing the C10 and co-precursor peroxy radicals and the main dimer formulas each mixture produces." width="975" height="525" loading="lazy">
+          <figcaption>Adding a co-VOC shifts the dominant dimers from C<sub>19–20</sub> for α-pinene alone to C<sub>15–16</sub> with cyclohexene and C<sub>12–13</sub> with <i>trans</i>-3-hexene.</figcaption></figure>
       </div>
       <div class="theme">
         <h3>Viscosity and volatility of terpene SOA</h3>
         <p>Particle phase state governs evaporation, multiphase reactivity, and water uptake. Single-particle evaporation kinetics measured by miniSPLAT showed that SOA from acyclic terpenes is more viscous and less volatile than SOA from their cyclic analogs. For β-caryophyllene and β-farnesene ozonolysis, precursor concentration and molecular structure jointly control evaporation behavior.</p>
+        <figure class="fig"><img src="img/terpene-viscosity.webp" alt="Schematic placing beta-farnesene and beta-caryophyllene SOA above beta-ocimene and alpha-pinene SOA on viscosity and volatility axes, with acyclic and cyclic structures labeled." width="1100" height="619" loading="lazy">
+          <figcaption>Sesquiterpene SOA sits above monoterpene SOA in viscosity, and within each class the acyclic precursor forms the more viscous, less volatile particles.</figcaption></figure>
       </div>
       <div class="theme">
         <h3>A chemically distinct aerosol layer next to clouds</h3>
         <p>ArcticShark samples collected above and below cloud base at the ARM Bankhead National Forest site, analyzed by nanoDESI-HRMS, SEM, and STXM, reveal a chemically distinct aerosol layer adjacent to clouds, with implications for how aerosol composition is represented in aerosol-cloud interactions.</p>
+        <figure class="fig"><img src="img/arcticshark.webp" alt="The ArcticShark uncrewed aircraft sampling above and below cumulus clouds over the forest canopy at Bankhead National Forest, Alabama, with isoprene structures drawn over the trees." width="900" height="485" loading="lazy">
+          <figcaption>ArcticShark samples above and below cloud base over Bankhead National Forest, Alabama. The IEPOX-derived organosulfate 2-MTS peaks just under the cloud.</figcaption></figure>
       </div>
       <div class="theme">
         <h3>Indoor air and consumer products</h3>
         <p>Volatile chemical products are a major source of reactive organic carbon in buildings. Sprays used under realistic indoor ozone levels form SOA rapidly, and I characterize the resulting new particle formation, particle volatility, and the effect of ventilation.</p>
+        <figure class="fig"><img src="img/vcp-indoor.webp" alt="Illustrated office room showing a consumer product spray reacting with indoor ozone, with arrows for particle formation, ventilation losses, ozone resupply, and repeated new particle formation episodes." width="900" height="485" loading="lazy">
+          <figcaption>A single spray under indoor ozone drives repeated new particle formation, because ventilation both removes particles and resupplies ozone.</figcaption></figure>
       </div>
       <div class="theme">
         <h3>Biomass burning aerosol</h3>
@@ -327,6 +366,52 @@ footer{border-top:1px solid var(--rule);padding:2rem 0 3rem;font:400 .8125rem/1.
 
   <footer>Department of Chemistry, University of California, Irvine</footer>
 </div>
+<script>
+(function(){
+  var svg=document.getElementById('scene'); if(!svg) return;
+  var g=document.getElementById('parts'), NS='http://www.w3.org/2000/svg';
+  var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var TOP=150, BASE=140, CTOP=40, GROUND=368, N=34, P=[];
+  function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+  function mk(){var c=document.createElementNS(NS,'circle');g.appendChild(c);return c;}
+  function spawn(p,anywhere){
+    p.x=26+Math.random()*214; p.y=anywhere?CTOP+Math.random()*(GROUND-CTOP):GROUND+Math.random()*10;
+    p.v=.18+Math.random()*.22; p.ph=Math.random()*6.3; p.act=Math.random()<.45; p.age=0;
+  }
+  for(var i=0;i<N;i++){var p={el:mk()};spawn(p,true);P.push(p);}
+  function draw(p){
+    var y=p.y, el=p.el;
+    if(y>BASE){ // below cloud: VOC -> growing SOA
+      var f=Math.min(1,Math.max(0,(GROUND-y)/(GROUND-TOP)));
+      var r=.9+f*3.1;
+      el.setAttribute('r',r.toFixed(2));
+      el.setAttribute('fill',f<.18?css('--voc'):css('--amber'));
+      el.setAttribute('stroke','none'); el.setAttribute('opacity',(f<.18?.7:.9).toFixed(2));
+    } else if(p.act){ // activated droplet
+      var k=Math.min(1,(BASE-y)/40);
+      el.setAttribute('r',(4+k*3.5).toFixed(2));
+      el.setAttribute('fill','none'); el.setAttribute('stroke',css('--drop')); el.setAttribute('stroke-width','1.3');
+      el.setAttribute('opacity',Math.min(1,(y-CTOP)/30).toFixed(2));
+    } else { // interstitial particle fades in cloud
+      el.setAttribute('r','4'); el.setAttribute('fill',css('--amber')); el.setAttribute('stroke','none');
+      el.setAttribute('opacity',Math.max(0,(y-(BASE-30))/30*.9).toFixed(2));
+    }
+    el.setAttribute('cx',(p.x+Math.sin(p.ph+y/28)*3).toFixed(1)); el.setAttribute('cy',y.toFixed(1));
+  }
+  function step(){
+    for(var i=0;i<P.length;i++){var p=P[i];
+      p.y-=p.v*(p.y<BASE?.55:1);
+      if(p.y<CTOP||(!p.act&&p.y<BASE-30)) spawn(p,false);
+      draw(p);}
+  }
+  P.forEach(draw);
+  if(still) return;
+  var on=true, raf;
+  function loop(){ if(on){step();} raf=requestAnimationFrame(loop); }
+  if('IntersectionObserver' in window){ new IntersectionObserver(function(e){on=e[0].isIntersecting;}).observe(svg); }
+  loop();
+})();
+</script>
 </body>
 
 </html>
