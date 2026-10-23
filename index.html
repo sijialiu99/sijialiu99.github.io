@@ -50,6 +50,8 @@ nav ul a.on{color:var(--ink);text-decoration:underline;text-decoration-color:var
 .progress{position:fixed;top:0;left:0;right:0;height:2px;background:var(--amber);transform-origin:0 50%;transform:scaleX(0);z-index:6;pointer-events:none}
 html.js .rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
 html.js .rv.fig{transform:translateY(22px) scale(.97)}
+html.js .rv.up{transform:translateY(-22px)}
+html.js .rv.fig.up{transform:translateY(-22px) scale(.97)}
 html.js .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){html.js .rv{opacity:1;transform:none;transition:none}.progress{display:none}}
 
@@ -532,7 +534,10 @@ footer{border-top:1px solid var(--rule);padding:2rem 0 3rem;font:400 .8125rem/1.
   else{
     var io=new IntersectionObserver(function(es){
       var n=0;
-      es.forEach(function(e){ if(e.isIntersecting){ e.target.style.transitionDelay=Math.min(n++,5)*70+'ms'; e.target.classList.add('in'); io.unobserve(e.target);} });
+      es.forEach(function(e){ var el=e.target;
+        if(e.isIntersecting){ el.style.transitionDelay=Math.min(n++,5)*70+'ms'; el.classList.add('in'); }
+        else { el.style.transitionDelay='0ms'; el.classList.remove('in'); el.classList.toggle('up', e.boundingClientRect.top<0); }
+      });
     },{rootMargin:'0px 0px -8% 0px'});
     items.forEach(function(el){io.observe(el);});
   }
